@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run server",
+            "type": "shell",
+            "command": "py manage.py runserver"
+        },
+        {
+            "label": "Migrate",
+            "type": "shell",
+            "command": "py manage.py migrate"
+        },
+        {
+            "label": "Migrations",
+            "type": "shell",
+            "command": "py manage.py makemigrations"
+        },
+        {
+            "label": "Enviroment Start",
+            "type": "shell",
+            "command": "source c:/Users/HP/Desktop/file_server/venv/Scripts/activate"
+        }
+    ]
+}
