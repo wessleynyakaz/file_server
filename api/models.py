@@ -12,6 +12,17 @@ class ProfilePicture(models.Model):
     class Meta:
         db_table = 'profile_image'
 
+class TeacherPicture(models.Model):
+    image = models.ImageField()
+    userId = models.TextField(blank=False, null=False, primary_key=True)
+    uploaded_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.uploaded_on.date()
+
+    class Meta:
+        db_table = 'teacher_image'
+
 class BookPicture(models.Model):
     image = models.ImageField()
     bookId = models.TextField(blank=False, null=False, primary_key=True)

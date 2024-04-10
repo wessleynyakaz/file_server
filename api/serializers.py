@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from .models import ProfilePicture, BookPicture, Assignment, Complaint
+from .models import ProfilePicture, TeacherPicture, BookPicture, Assignment, Complaint
 
 
 class ProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfilePicture
+        fields = ('image', 'uploaded_on', 'userId')
+
+class TeacherImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeacherPicture
         fields = ('image', 'uploaded_on', 'userId')
 
 class BookImageSerializer(serializers.ModelSerializer):
