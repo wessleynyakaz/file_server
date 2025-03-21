@@ -1,30 +1,39 @@
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-73v6gx*34boug*&)$xd$t)^xqupk213o5c%^8j+lo!v0%+(3md'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
+
 ALLOWED_HOSTS = [
-    'localhost:3000',
     'https://student-portal-delta.vercel.app',
     'https://accounts-portal.vercel.app',
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS.append('*')
 
 CORS_ALLOWED_ORIGINS = [
     'https://student-portal-delta.vercel.app',
     'https://accounts-portal.vercel.app',
 ]
 
-# Application definition
+if DEBUG:
+    # Example for local development
+    CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
+
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'x-requested-with',
+    'accept',
+    'accept-encoding',
+    'origin',
+    'user-agent',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,20 +79,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'file_server.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -115,11 +116,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
