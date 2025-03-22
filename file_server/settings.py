@@ -12,17 +12,16 @@ ALLOWED_HOSTS = [
     'https://accounts-portal.vercel.app',
 ]
 
-if DEBUG:
-    ALLOWED_HOSTS.append('*')
-
 CORS_ALLOWED_ORIGINS = [
     'https://student-portal-delta.vercel.app',
     'https://accounts-portal.vercel.app',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = False
+
 if DEBUG:
-    # Example for local development
-    CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
+    ALLOWED_HOSTS.append('*')
+    CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_HEADERS = [
     'content-type',
@@ -79,16 +78,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'file_server.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_NAME', 'schoolportal'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'pos'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+if os.getenv('USE_SQLITE') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'schoolportal',
+            'USER': 'postgres',
+            'PASSWORD': 'pos',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

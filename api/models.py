@@ -50,3 +50,11 @@ class Complaint(models.Model):
 
     class Meta:
         db_table = 'complaints_files'
+
+class BookImage(models.Model):
+    bookId = models.CharField(max_length=50, unique=True)
+    image = models.ImageField(upload_to='book_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Image for book {self.bookId}"
